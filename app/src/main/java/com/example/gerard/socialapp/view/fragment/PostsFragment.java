@@ -5,15 +5,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gerard.socialapp.GlideApp;
 import com.example.gerard.socialapp.R;
+import com.example.gerard.socialapp.RecyclerItemClickListener;
 import com.example.gerard.socialapp.model.Post;
 import com.example.gerard.socialapp.view.PostViewHolder;
 import com.example.gerard.socialapp.view.activity.MediaActivity;
+import com.example.gerard.socialapp.view.activity.MessagesActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +45,24 @@ public class PostsFragment extends Fragment {
                 .setLifecycleOwner(this)
                 .build();
 
-        RecyclerView recycler = view.findViewById(R.id.rvPosts);
+        final RecyclerView recycler = view.findViewById(R.id.rvPosts);
+
+        recycler.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), recycler, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Intent intent = new Intent(getActivity(), MessagesActivity.class);
+                String postUid = ((TextView) recycler.findViewHolderForAdapterPosition(position).itemView.findViewById(R.id.uid)).getText().toString();
+                intent.putExtra("uid", postUid);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                // ...
+            }
+        }));
+
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setAdapter(new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
             @Override
@@ -49,10 +71,12 @@ public class PostsFragment extends Fragment {
                 return new PostViewHolder(inflater.inflate(R.layout.item_post, viewGroup, false));
             }
 
+
+
             @Override
             protected void onBindViewHolder(final PostViewHolder viewHolder, int position, final Post post) {
                 final String postKey = getRef(position).getKey();
-
+                viewHolder.uid.setText(post.postKey);
                 viewHolder.author.setText(post.author);
                 GlideApp.with(PostsFragment.this).load(post.authorPhotoUrl).circleCrop().into(viewHolder.photo);
 

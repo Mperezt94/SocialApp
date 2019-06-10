@@ -13,16 +13,18 @@ public class Post {
     public String mediaUrl;
     public String mediaType;
     public Map<String, Boolean> likes = new HashMap<>();
+    public String postKey;
 
     public Post() {}
 
-    public Post(String uid, String author, String authorPhotoUrl, String content, String mediaUrl, String mediaType) {
+    public Post(String uid, String author, String authorPhotoUrl, String content, String mediaUrl, String mediaType, String postKey) {
         this.uid = uid;
         this.author = author;
         this.authorPhotoUrl = authorPhotoUrl;
         this.content = content;
         this.mediaUrl = mediaUrl;
         this.mediaType = mediaType;
+        this.postKey = postKey;
     }
 
     @Exclude
@@ -35,6 +37,7 @@ public class Post {
         result.put("mediaUrl", mediaUrl);
         result.put("mediaType", mediaType);
         result.put("likes", likes);
+        result.put("postKey", postKey);
 
         return result;
     }

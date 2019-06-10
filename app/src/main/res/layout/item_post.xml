@@ -69,11 +69,18 @@
                     android:layout_marginLeft="4dp"
                     android:layout_gravity="center_vertical" />
 
+
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/uid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_gravity="center_vertical" />
 
 </android.support.v7.widget.CardView>

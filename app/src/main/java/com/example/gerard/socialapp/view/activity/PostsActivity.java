@@ -31,6 +31,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class PostsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -120,11 +121,17 @@ public class PostsActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
 
+            startActivity(new Intent(PostsActivity.this, PostsActivity.class));
+            finish();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.message_manage) {
+
+            startActivity(new Intent(PostsActivity.this, MessagesActivity.class));
+            finish();
 
         } else if (id == R.id.sign_out) {
             Log.e("ABC", "signout");
@@ -137,7 +144,6 @@ public class PostsActivity extends AppCompatActivity
                             finish();
                         }
                     });
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -205,7 +205,7 @@ public class NewPostActivity extends AppCompatActivity {
     private void writeNewPost(String postText, String mediaUrl) {
         String postKey = mReference.push().getKey();
 
-        Post post = new Post(mUser.getUid(), mUser.getDisplayName(), mUser.getPhotoUrl().toString(), postText, mediaUrl, mediaType);
+        Post post = new Post(mUser.getUid(), mUser.getDisplayName(), mUser.getPhotoUrl().toString(), postText, mediaUrl, mediaType, postKey);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
